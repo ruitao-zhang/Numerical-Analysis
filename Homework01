@@ -1,0 +1,504 @@
+\documentclass[a4paper]{article}
+\usepackage[affil-it]{authblk}
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+\usepackage{amsmath}
+
+\usepackage{geometry}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+
+\addbibresource{citation.bib}
+
+\begin{document}
+% =================================================
+\title{Numerical Analysis homework \# 1}
+
+\author{Yuming Zhang 3210105252
+  \thanks{Electronic address: \texttt{3210105225@zju.edu.cn}}}
+\affil{(Information and Computing Science 2101), Zhejiang University }
+
+
+\date{Due time: \today}
+
+\maketitle
+
+
+\section*{I.}
+
+\subsection*{I-a What is the width of the interval at the nth step?}
+
+The initial interval's width is:
+
+\[
+b_0 - a_0 = 3.5 - 1.5 = 2
+\]
+
+At each step \(n\), the interval is halved:
+
+\[
+w_n = \frac{w_0}{2^n} = \frac{1}{2^{n-1}}
+\]
+
+Thus, the width of the interval at the \(n\)-th step is:
+
+\[
+w_n = \frac{1}{2^{n-1}}
+\]
+
+
+\subsection*{I-b What is the supremum of the distance between
+the root r and the midpoint of the interval?}
+
+The midpoint of the interval at the \(n\)-th step, is given by:
+
+\[
+m_n = \frac{a_n + b_n}{2}
+\]
+
+The distance between the root \(r\) and the midpoint \(m_n\) satisfies:
+
+\[
+|r - m_n| \leq \frac{w_n}{2}
+\]
+
+So:
+
+\[
+|r - m_n| \leq \frac{1}{2^n}
+\]
+
+As \(n \to \infty\), this distance approaches zero. Thus, the supremum is:
+
+\[
+\sup |r - m_n| = \frac{w_0}{2} = \frac{2}{2} = 1
+\]
+\section*{II. Prove that this goal of accuracy is guaranteed by the following choice of the number of steps:
+\[
+n \geq \frac{\log(b_0 - a_0) - \log \epsilon - \log a_0}{\log 2} - 1
+\]
+}
+
+\subsection*{Proof:}
+
+After \(n\) iterations, the length of the interval is:
+
+\[
+b_n - a_n = \frac{b_0 - a_0}{2^n}
+\]
+
+Since \(x^*\) lies in the interval \([a_n, b_n]\), we know that \(x^* \geq a_n\). Thus, the relative error \(\alpha\) after \(n\) steps is :
+
+\[
+ \alpha = \frac{1/2(b_n - a_n)-x^*}{x^*} \leq \frac{b_n - a_n}{2x^*}
+\]
+
+We want \(\alpha\) to satisfy:
+
+\[
+\frac{b_n - a_n}{2x^*} \leq \epsilon
+\]
+
+Substituting \(b_n - a_n = \frac{b_0 - a_0}{2^n}\):
+
+\[
+\frac{b_0 - a_0}{2^{n+1} x^*} \leq \epsilon
+\]
+
+Then:
+
+\[
+2^{n+1} \geq \frac{b_0 - a_0}{\epsilon x^*}
+\]
+
+\[
+n+1 \geq \log_2 \left( \frac{b_0 - a_0}{\epsilon x^*} \right)
+\]
+
+We can find:
+
+\[
+n+1 \geq \log_2(b_0 - a_0) - \log_2 \epsilon - \log_2 x^*
+\]
+
+Since  \(x^* \geq a_0\)
+
+Finally, converting the base 2 logarithm to base 10, we have:
+
+\[
+n \geq \frac{\log(b_0 - a_0) - \log \epsilon - \log a_0}{\log 2}-1
+\]
+
+\section*{III. Perform four iterations of Newton's method for the polynomial equation 
+\[
+p(x) = 4x^3 - 2x^2 + 3 = 0
+\]
+with the starting point \(x_0 = -1\). Use a hand calculator and organize the results of the iterations in a table.}
+\subsection*{Solution}
+
+About \(p(x) = 4x^3 - 2x^2 + 3\), its derivative is :
+\[
+p'(x) = 12x^2 - 4x
+\]
+
+Using Newton's method:
+\[
+x_{n+1} = x_n - \frac{p(x_n)}{p'(x_n)}
+\]
+
+\subsubsection*{Iteration 1}
+
+For \(x_0 = -1\):
+
+\[
+p(x_0) = -3
+\]
+\[
+p'(x_0) = 16
+\]
+\[
+x_1 = x_0 - \frac{p(x_0)}{p'(x_0)} =  -0.8125
+\]
+
+\subsubsection*{Iteration 2}
+
+For \(x_1 = -0.8125\):
+
+\[
+p(x_1) \approx -2.685 \quad 
+\]
+\[
+p'(x_1) \approx 13.3125 \quad 
+\]
+\[
+x_2 = x_1 - \frac{p(x_1)}{p'(x_1)} \approx  -0.6108
+\]
+
+\subsubsection*{Iteration 3}
+
+For \(x_2 = -0.6108\):
+
+\[
+p(x_2) \approx -2.235 \quad 
+\]
+\[
+p'(x_2) \approx 11.254 \quad
+\]
+\[
+x_3 = x_2 - \frac{p(x_2)}{p'(x_2)} \approx -0.4122
+\]
+
+\subsubsection*{Iteration 4}
+
+For \(x_3 = -0.4122\):
+
+\[
+p(x_3) = 4(-0.4122)^3 - 2(-0.4122)^2 + 3 \approx -1.784 \quad 
+\]
+\[
+p'(x_3) = 12(-0.4122)^2 - 4(-0.4122) \approx 9.336 \quad
+\]
+\[
+x_4 = x_3 - \frac{p(x_3)}{p'(x_3)} = -0.4122 - \frac{-1.784}{9.336} \approx -0.4122 + 0.1911 = -0.2211
+\]
+
+\subsubsection*{Table:}
+
+\[
+\begin{array}{|c|c|c|c|}
+\hline
+n & x_n & p(x_n) & p'(x_n) \\
+\hline
+0 & -1.0000 & -3.0000 & 16.0000 \\
+1 & -0.8125 & -2.6850 & 13.3125 \\
+2 & -0.6108 & -2.2350 & 11.2540 \\
+3 & -0.4122 & -1.7840 & 9.3360 \\
+4 & -0.2211 & & \\
+\hline
+\end{array}
+\]
+
+\section*{IV.Find constants \( C \) and \( s \) such that the error at step \( n+1 \), denoted as \( e_{n+1} \), can be written in the form:
+\[
+e_{n+1} = C e_n^s,
+\]}
+
+\subsection*{Solution:}
+
+Define the error at step \( n \) as:
+
+\[
+e_n = x_n - \alpha,
+\]
+
+where \( \alpha \) satisfies \( f(\alpha) = 0 \).
+
+For:
+
+\[
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_0)}.
+\]
+
+The error at step \( n+1 \) becomes:
+
+\[
+e_{n+1} = x_{n+1} - \alpha = \left( x_n - \frac{f(x_n)}{f'(x_0)} \right) - \alpha = e_n - \frac{f(x_n)}{f'(x_0)}.
+\]
+
+Using Taylor expansion:
+
+\[
+f(x_n) = f(\alpha) + f'(\alpha)(x_n - \alpha) + \frac{f''(\alpha)}{2}(x_n - \alpha)^2 + \dots.
+\]
+
+Since \( f(\alpha) = 0 \), thus:
+
+\[
+f(x_n) = f'(\alpha) e_n + \frac{f''(\alpha)}{2} e_n^2 + \dots.
+\]
+
+Substitute it:
+
+\[
+e_{n+1} = e_n - \frac{f'(\alpha) e_n + \frac{f''(\alpha)}{2} e_n^2}{f'(x_0)}.
+\]
+
+So:
+
+\[
+e_{n+1} = e_n \left( 1 - \frac{f'(\alpha)}{f'(x_0)} \right) - \frac{f''(\alpha)}{2 f'(x_0)} e_n^2 + \dots.
+\]
+
+If \( x_0 \) is very close to \( \alpha \), we can assume that \( f'(x_0) \approx f'(\alpha) \), so we can get:
+
+\[
+e_{n+1} \approx - \frac{f''(\alpha)}{2 f'(x_0)} e_n^2.
+\]
+
+To match \( e_{n+1} = C e_n^s \), we get 
+\[ 
+s = 2 
+\] 
+\[
+C = - \frac{f''(\alpha)}{2 f'(x_0)}.
+\]
+
+\section*{V.Within the interval \( \left( -\frac{\pi}{2}, \frac{\pi}{2} \right) \), will the iteration defined by:
+\[
+x_{n+1} = \tan^{-1}(x_n)
+\]  converge?}
+\subsection*{Solution:}
+
+Let 
+\[ 
+f(x) = \tan^{-1}(x) 
+\]. 
+
+A fixed point \( \alpha \) of \( f \) means:
+
+\[
+\alpha = \tan^{-1}(\alpha).
+\]
+
+Then we can get 
+
+\[ 
+\tan(\alpha) = \alpha 
+\]. 
+
+Within the interval \( \left( -\frac{\pi}{2}, \frac{\pi}{2} \right) \), we have the only fixed point \( \alpha = 0 \).
+
+
+The function \( f(x) \) becomes a contraction for values of \( x \) away from 0, as:
+
+\[
+|f(x) - f(y)| \leq \frac{1}{1 + x^2} |x - y|.
+\]
+
+Thus, for \( x \in \left( -\frac{\pi}{2}, \frac{\pi}{2} \right) \), \( f(x) \) satisfies the contraction condition.
+
+So, the iteration \( x_{n+1} = \tan^{-1}(x_n) \) will converge to the fixed point \( 0 \) for any initial value \( x_0 \) within \( \left( -\frac{\pi}{2}, \frac{\pi}{2} \right) \), as \( f(x) \) satisfies the contraction mapping conditions in this interval.
+
+\section*{VI.Let \( p > 1 \). Consider the following continued fraction:
+\[
+x = \cfrac{1}{p + \cfrac{1}{p + \cfrac{1}{p + \dots}}}
+\]
+ prove that the sequence of values converges.}
+
+\subsection*{Solution:}
+
+Define \( x \) as the value of the fraction:
+
+\[
+x = \cfrac{1}{p + x}.
+\]
+
+So:
+
+\[
+x^2 + px - 1 = 0.
+\]
+
+Solve this equation we can get:
+
+\[
+x = \frac{-p \pm \sqrt{p^2 + 4}}{2}.
+\]
+
+Since \( p > 1 \), we discard the negative root. Thus, the solution is:
+
+\[
+x = \frac{-p + \sqrt{p^2 + 4}}{2}.
+\]
+
+The sequence can be defined recursively by:
+
+\[
+x_{n+1} = \frac{1}{p + x_n},
+\]
+
+with \( x_1 = \frac{1}{p} \).
+Set:
+
+\[
+f(x) = \frac{1}{p + x}.
+\]
+
+Its derivative is:
+
+\[
+f'(x) = -\frac{1}{(p + x)^2}.
+\]
+
+Since \( f'(x) \) is negative and its magnitude is less than 1 for \( p > 1 \), the function \( f(x) \) is a contraction mapping. So, the sequence \( \{x_n\} \) converges to the unique fixed point:
+
+\[
+x = \frac{-p + \sqrt{p^2 + 4}}{2}.
+\]
+\section*{VII. What happens in problem II if a0 < 0 < b0? Derive
+an inequality of the number of steps similar to that in
+II. In this case, is the relative error still an appropriate
+measure?
+}
+\subsection*{Solution}
+\subsubsection*{Analysis}
+
+When \(a_0 < 0 < b_0\), we no longer have a situation where the entire interval lies on one side of the root. So \(x^*\) in problem 2 may be negative number which is possible to change the direction of inequality. It means that the error analysis based on relative error will no longer be applicable.
+
+\subsubsection*{Derivation}
+
+After n steps of bisection algorithm , the interval becomes：
+
+\[
+\frac{b_0 - a_0}{2^n}
+\]
+
+We want this length to be less than or equal to the error \(\epsilon\):
+
+\[
+\frac{b_0 - a_0}{2^n} \leq \epsilon
+\]
+
+Then:
+
+\[
+\log(b_0 - a_0) - n \log 2 \leq \log \epsilon
+\]
+
+Solving for \(n\):
+
+\[
+n \geq \frac{\log(b_0 - a_0) - \log \epsilon}{\log 2}
+\]
+
+The inequality  below \(\epsilon\) is:
+
+\[
+n \geq \frac{\log(b_0 - a_0) - \log \epsilon}{\log 2}
+\]
+
+\section*{VIII}
+\subsection*{1.Solution}
+
+For a multiple root \(\alpha\), set error:
+
+\[
+e_n = x_n - \alpha
+\]
+
+Taylor expansion gives:
+
+\[
+f(x_n) \approx \frac{f^{(k)}(\alpha)}{k!} e_n^k, \quad f'(x_n) \approx \frac{f^{(k)}(\alpha)}{(k-1)!} e_n^{k-1}.
+\]
+
+Newton iteration leads to:
+
+\[
+e_{n+1} \approx \frac{k-1}{k} e_n.
+\]
+
+Thus,
+\[
+f(x_{n+1}) \approx \frac{f^{(k)}(\alpha)}{k!} \left( \frac{k-1}{k} \right)^k e_n^k \approx \left( \frac{k-1}{k} \right)^k f(x_n),
+\]
+
+and the ratio approaches a constant. For a simple root, $f(x_{n+1}) \approx c [f(x_n)]^2$, and the ratio approaches 0.
+
+So by computing the ratio 
+
+\[
+\frac{|f(x_{n+1})|}{|f(x_n)|}
+\] 
+
+If the ratio approaches 0, it is likely a simple root; if it approaches a non-zero constant, it indicates a multiple root. The multiplicity $k$ can be further estimated by solving $r = \left( \frac{k-1}{k} \right)^k$.
+
+\subsection*{2.Proof}
+
+Let $\alpha$ be the root of multiplicity $k$, 
+
+\[
+f(\alpha) = f'(\alpha) = \cdots = f^{(k-1)}(\alpha) = 0
+\]
+
+\[
+f^{(k)}(\alpha) \neq 0
+\]
+
+Set error 
+
+\[
+e_n = x_n - \alpha
+\]
+
+Use Taylor expansion:
+
+\[
+f(x_n) = \frac{f^{(k)}(\alpha)}{k!} e_n^k + O(e_n^{k+1}),
+\]
+\[
+f'(x_n) = \frac{f^{(k)}(\alpha)}{(k-1)!} e_n^{k-1} + O(e_n^k).
+\]
+
+Then
+
+\[
+\frac{f(x_n)}{f'(x_n)} = \frac{ \frac{f^{(k)}(\alpha)}{k!} e_n^k + O(e_n^{k+1}) }{ \frac{f^{(k)}(\alpha)}{(k-1)!} e_n^{k-1} + O(e_n^k) } = \frac{e_n}{k} + O(e_n^2).
+\]
+
+For the modified iteration:
+
+\[
+x_{n+1} = x_n - k \cdot \frac{f(x_n)}{f'(x_n)} = x_n - k \left( \frac{e_n}{k} + O(e_n^2) \right) = x_n - e_n + O(e_n^2) = \alpha + O(e_n^2).
+\]
+
+Thus, $e_{n+1} = O(e_n^2)$.
+
+
+\section*{ \center{\normalsize {Acknowledgement}} }
+The main idea of question eight comes from AI
+
+
+
+\end{document}
