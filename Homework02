@@ -1,0 +1,578 @@
+\documentclass[a4paper]{article}
+\usepackage[affil-it]{authblk}
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+\usepackage{amsmath}
+\usepackage{xeCJK}
+\usepackage{geometry}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+
+\addbibresource{citation.bib}
+
+\begin{document}
+% =================================================
+\title{Numerical Analysis homework \# 2}
+
+\author{张育铭 ZhangYuming 3210105252
+  \thanks{Electronic address: \texttt{3210105225@zju.edu.cn}}}
+\affil{(Information and Computing Science 2101), Zhejiang University }
+
+
+\date{Due time: \today}
+
+\maketitle
+
+
+
+\section*{I.}
+\subsection*{(1)Solution:}
+\indent Easily:
+
+\[
+f'(x) = -\frac{1}{x^2}
+\]
+\[
+f''(x) = \frac{2}{x^3}
+\]
+\indent We have:
+
+\[
+f(x) - p_1(f; x) = \frac{f''(\xi(x))}{2}(x - x_0)(x - x_1)
+\]
+
+Since \( p_1(f; x) \) is the linear interpolation of \( f(x) \) at \( x_0 = 1 \) and \( x_1 = 2 \), we can get:
+
+\[
+p_1(f; x) = f(x_0) + \frac{f(x_1) - f(x_0)}{x_1 - x_0} (x - x_0)
+\]
+
+Because \( f(1) = 1 \) and \( f(2) = \frac{1}{2} \), we can get:
+
+\[
+p_1(f; x) = \frac{3 - x}{2}
+\]
+\indent Next:
+
+\[
+f(x) - p_1(f; x) = \frac{1}{x} - \frac{3 - x}{2} = \frac{f''(\xi(x))}{2}(x - 1)(x - 2)
+\]
+
+Thus:
+
+\[
+\frac{2 - x}{2x} = \frac{f''(\xi(x))}{2} (x - 1)(x - 2)
+\]
+
+We get:
+
+\[
+\frac{2 - x}{2x} = \frac{1}{\xi(x)^3} (x - 1)(x - 2)
+\]
+
+Thus,
+
+\[
+\xi(x) = \left( \frac{2x (x - 1)(x - 2)}{2 - x} \right)^{\frac{1}{3}}
+\]
+
+\subsection*{(2)Solution:}
+\noindent From the definition of \( \xi(x) \), we can eaily find:
+
+ The minimum value of \( \xi(x) \) is \( \xi(1) = 1 \).\\
+\indent  The maximum value of \( \xi(x) \) is \( \xi(2) = 2 \).
+
+Since \( f''(x) = \frac{2}{x^3} \), 
+
+- At \( \xi(x) = 1 \), \( f''(1) = 2 \).
+- At \( \xi(x) = 2 \), \( f''(2) = \frac{1}{4} \).
+
+Thus, the maximum value of \( f''(\xi(x)) \) is \( 2 \).
+
+max\( \xi(x) \) = \( 2 \), and min\( \xi(x) \) = \( 1 \). \\
+\indent max\( f''(\xi(x)) \) = \( 2 \).
+
+\section*{II.}  
+\subsection*{Proof:}
+\indent Using a sum of squares form, as polynomials that are sums of squares are non-negative.
+\[
+p(x) = \sum_{i=0}^{n} f_i \left( L_i(x) \right)^2
+\]
+\indent where \( L_i(x) \) is:
+\[
+L_i(x) = \prod_{\substack{j=0 \\ j 
+\neq i}}^{n} \frac{x - x_j}{x_i - x_j}
+\]
+\indent Since \( f_i \geq 0 \) and \( \left( L_i(x) \right)^2 \geq 0 \) for all \( x \), the polynomial \( p(x) \) is non-negative on the real line.
+
+\section*{III.}
+\subsection*{(1)Proof:}
+For \( n = 0 \):
+
+\[
+f[t] = e^t = \frac{(e-1)^0}{0!} e^t
+\]
+
+The base case holds.
+
+\noindent Assume the statement holds for \( n = k \):
+
+\[
+f[t, t+1, \dots, t+k] = \frac{(e-1)^k}{k!} e^t
+\]
+
+\noindent Consider the formula holds for \( n = k+1 \):
+
+\[
+f[t, t+1, \dots, t+k+1] = \frac{f[t+1, t+2, \dots, t+k+1] - f[t, t+1, \dots, t+k]}{t+k+1 - t}
+\]
+
+Substituting the inductive hypothesis:
+
+\[
+f[t, t+1, \dots, t+k+1] = \frac{\frac{(e-1)^k}{k!} e^{t+1} - \frac{(e-1)^k}{k!} e^t}{k+1}
+\]
+
+Since \( e^{t+1} = e \cdot e^t \), we have:
+
+\[
+f[t, t+1, \dots, t+k+1] = \frac{(e-1)^{k+1}}{(k+1)!} e^t
+\]
+
+Thus, the statement holds for \( n = k+1 \), completing the induction.
+
+\subsection*{(2)Solution:}
+We know:
+
+\[
+f[0, 1, \dots, n] = \frac{1}{n!} f^{(n)}(\xi)
+\]
+
+For \( f(x) = e^x \), the \( n \)-th derivative is \( f^{(n)}(x) = e^x \):
+
+\[
+f[0, 1, \dots, n] = \frac{1}{n!} e^\xi
+\]
+
+From (1):
+
+\[
+f[0, 1, \dots, n] = \frac{(e-1)^n}{n!}
+\]
+
+We can get:
+
+\[
+\frac{(e-1)^n}{n!} = \frac{1}{n!} e^\xi \implies (e-1)^n = e^\xi
+\]
+
+Taking the natural logarithm:
+
+\[
+n \ln(e-1) = \xi \implies \xi = n \ln(e-1) \approx 0.541n
+\]
+
+Thus, we can know that \( \xi \)  is at the left of the midpoint \( \frac{n}{2} \).
+
+\section*{IV.}
+\subsection*{(1)Solution:}
+We can easily calculate that:
+
+\[
+f[0, 1] = \frac{f(1) - f(0)}{1 - 0} = -2
+\]
+\[
+f[1, 3] = \frac{f(3) - f(1)}{3 - 1} = 1
+\]
+\[
+f[3, 4] = \frac{f(4) - f(3)}{4 - 3} = 7
+\]
+\[
+f[0, 1, 3] = \frac{f[1, 3] - f[0, 1]}{3 - 0} = 1
+\]
+\[
+f[1, 3, 4] = \frac{f[3, 4] - f[1, 3]}{4 - 1} = 2
+\]
+\[
+f[0, 1, 3, 4] = \frac{f[1, 3, 4] - f[0, 1, 3]}{4 - 0} = \frac{1}{4}
+\]
+
+\noindent So:
+\[
+p_3(f; x) = 5 - 2(x - 0) + 1(x - 0)(x - 1) + \frac{1}{4}(x - 0)(x - 1)(x - 3)
+ = \frac{1}{4}x^3 - \frac{3}{4}x^2 + \frac{1}{4}x + 5
+\]
+
+\subsection*{(2)Solution:}
+Take the derivative:
+\[
+p_3'(f; x) = \frac{3}{4}x^2 - \frac{3}{2}x + \frac{1}{4}
+\]
+Set zero:
+\[
+\frac{3}{4}x^2 - \frac{3}{2}x + \frac{1}{4} = 0
+\]
+Solving it, We can get \( x_1 \approx 1.82 \), which is the location of the minimum in \( x \in (1, 3) \).
+
+\section*{V.}
+\subsection*{(1)Solution:}
+
+\[
+f[0, 1] = \frac{f(1) - f(0)}{1 - 0} = 1
+\]
+\[
+f[1, 1] = 0 \quad (\text{\( f(1) = 1 \)})
+\]
+\[
+f[1, 2] = \frac{f(2) - f(1)}{2 - 1} = 127
+\]
+\[
+f[0, 1, 1] = \frac{f[1, 1] - f[0, 1]}{1 - 0} = -1
+\]
+\[
+f[1, 1, 2] = \frac{f[1, 2] - f[1, 1]}{2 - 1} = 127
+\]
+\[
+f[0, 1, 1, 2] = \frac{f[1, 1, 2] - f[0, 1, 1]}{2 - 0} = 64
+\]
+\[
+f[1, 1, 2, 2] = \frac{-127 - 127}{1} = -254
+\]
+\[
+f[0, 1, 1, 2, 2] = \frac{-254 - 64}{2} = -159
+\]
+\[
+f[0, 1, 1, 1, 2, 2] = \frac{159}{2} = 79.5
+\]
+
+\subsection*{(2)Solution}
+The fifth derivative of \( f(x) \) is \( f^{(5)}(x) = 2520x^2 \). Thus:
+
+\[
+f[0, 1, 1, 1, 2, 2] = \frac{f^{(5)}(\xi)}{5!}
+\]
+
+So:
+
+\[
+79.5 = \frac{2520\xi^2}{120} \implies \xi \approx 1.946
+\]
+
+\section*{VI.}
+\subsection*{(1)Solution:}
+We can eaily get:
+
+\[
+f[0] = 1, \quad f[1] = 2, \quad f[1, 1] = -1, \quad f[1, 3] = -1
+\]
+
+Thus:
+
+\[
+p_3(x) = 1 + 2(x - 0) - (x - 1)(x)
+\]
+
+Simplifying:
+
+\[
+p_3(x) = 1 + 3x - x^2
+\]
+
+Evaluating at \( x = 2 \):
+
+\[
+p_3(2) = 3
+\]
+
+\subsection*{(2)Solution:}
+According to:
+
+\[
+E(x) = \frac{f^{(5)}(\xi)}{5!}(x - x_0)^2(x - x_1)^2(x - x_2)
+\]
+
+For \( x = 2 \), \( x_0 = 0 \), \( x_1 = 1 \), \( x_2 = 3 \), the error is:
+
+\[
+|E(2)| \leq \frac{M}{120}(2 - 0)^2(2 - 1)^2(2 - 3) = \frac{M}{30}
+\]
+
+\section*{VII.}
+\subsection*{Proof:}
+
+For \( k = 1 \):
+
+\[
+\Delta f(x) = f(x+h) - f(x) = h f[x_0, x_1]
+\]
+
+This satisfies \( 1! h^1 f[x_0, x_1] \).
+
+Assume for \( k = n \):
+
+\[
+\Delta^n f(x) = n! h^n f[x_0, x_1, \dots, x_n]
+\]
+
+Prove for \( k = n+1 \):
+
+\[
+\Delta^{n+1} f(x) = \Delta (\Delta^n f(x)) = n! h^n (f[x_1, \dots, x_{n+1}] - f[x_0, \dots, x_n])
+\]
+
+This gives:
+
+\[
+\Delta^{n+1} f(x) = (n+1)! h^{n+1} f[x_0, \dots, x_{n+1}]
+\]
+
+\noindent Similarly, \(\Delta^k f(x) = k! h^k f[x_0, x_-1, \dots, x_-k]\) can be proven in the same manner.
+
+\section*{VIII.}
+\subsection*{Proof:}
+\subsubsection*{Partial derivative with \(x_0\):}
+We know that:
+
+\[
+f[x_0, x_1, \dots, x_n] = \frac{f[x_1, \dots, x_n] - f[x_0, \dots, x_{n-1}]}{x_n - x_0}
+\]
+
+Then:
+
+\[
+\frac{\partial}{\partial x_0} f[x_0, x_1, \dots, x_n] = \frac{- (x_n - x_0) \frac{\partial}{\partial x_0} f[x_0, \dots, x_{n-1}] + \left( f[x_1, \dots, x_n] - f[x_0, \dots, x_{n-1}] \right)}{(x_n - x_0)^2}.
+\]
+
+Now, observe that $f[x_0, x_1, \dots, x_n]$ is already a difference quotient. As $x_0 \to x_0$, the first term (involving the derivative of $f[x_0, \dots, x_{n-1}]$) vanishes:
+
+\[
+f[x_0, x_0, x_1, \dots, x_n].
+\]
+
+Hence:
+\[
+\frac{\partial}{\partial x_0} f[x_0, x_1, \dots, x_n] = f[x_0, x_0, x_1, \dots, x_n].
+\]
+
+\subsubsection*{Partial derivative with respect to other variables:}
+
+Same:\\
+The divided difference $f[x_0, x_1, \dots, x_n]$ is symmetric in its arguments:
+
+\[
+f[x_0, x_1, \dots, x_n] = \frac{f[x_0, x_2, \dots, x_n] - f[x_0, x_1, \dots, x_{n-1}]}{x_n - x_1}.
+\]
+
+We can get:
+
+\[
+\frac{\partial}{\partial x_1} f[x_0, x_1, \dots, x_n] = \frac{- (x_n - x_1) \frac{\partial}{\partial x_1} f[x_0,x_1 \dots, x_{n-1}] + \left( f[x_0,x_2 \dots, x_n] - f[x_0, \dots, x_{n-1}] \right)}{(x_n - x_1)^2}.
+\]
+
+Thus, the partial derivative with respect to $x_1$ yields:
+
+\[
+\frac{\partial}{\partial x_1} f[x_0, x_1, \dots, x_n] = f[x_0, x_1, x_1, \dots, x_n].
+\]
+
+\section*{IX.}
+\subsection*{Solution:}
+Set the polynomial :
+
+\[
+P(x) = a_0 x^n + a_1 x^{n-1} + \dots + a_n,
+\]
+
+Set a linear transformation of \( x \) :
+
+\[
+x = \frac{2t - (a+b)}{b - a},
+\]
+
+Then the optimal polynomial \( P(x) \) is:
+
+\[
+P(x) = a_0 T_n\left( \frac{2x - (a+b)}{b - a} \right),
+\]
+
+where \( T_n(x) \) is the \( n \)-th Chebyshev polynomial of the first kind.
+
+Thus:
+\[
+\min \max_{x \in [a, b]} |P(x)| = \frac{1}{2^{n-1}},
+\]
+where $P(x)$ is the scaled Chebyshev polynomial of degree $n$.
+
+\section*{X.}
+\section*{Proof}
+Assume that \( p \in P_n^a \):
+
+\[
+\|p\|_\infty < \|\hat{p}_n\|_\infty = \frac{1}{T_n(a)}
+\]
+
+So:
+
+\[
+\max_{x \in [-1, 1]} |p(x)| < \frac{1}{T_n(a)}
+\]
+
+and 
+
+\[
+p(a) = 1 
+\].
+
+Define:
+
+\[
+q(x) = \hat{p}_n(x) - p(x) = \frac{T_n(x)}{T_n(a)} - p(x)
+\]
+
+According to the definition, the degree of \(q(x)\) doesn't exceed \(n\). At \(x = 0\):
+
+\[
+q(a) = \hat{p}_n(a) - p(a) = \frac{T_n(a)}{T_n(a)} - 1 = 0
+\]
+
+At \( x_k = \cos(k\pi/n), k = 0, 1, \dots, n \), we have:
+
+\[
+T_n(x_k) = (-1)^k, \quad \hat{p}_n(x_k) = \frac{(-1)^k}{T_n(a)}
+\]
+
+If \( T_n(a) > 0 \):
+\[
+q(x_k) = \hat{p}_n(x_k) - p(x_k) = \frac{(-1)^k}{T_n(a)} - p(x_k)
+\]
+
+According to \( |p(x)| < \frac{1}{T_n(a)} \), we have \( -\frac{1}{T_n(a)} < p(x) < \frac{1}{T_n(a)} \). Thus:
+\begin{itemize}
+    \item When \( k \) is even,\( (-1)^k = 1 \),\( \hat{p}_n(x_k) = \frac{1}{T_n(a)} \), so:
+    \[
+    q(x_k) = \frac{1}{T_n(a)} - p(x_k) > \frac{1}{T_n(a)} - \frac{1}{T_n(a)} = 0
+    \]
+    \item When \( k \) is odd,\( (-1)^k = -1 \)，\( \hat{p}_n(x_k) = -\frac{1}{T_n(a)} \), so:
+    \[
+    q(x_k) = -\frac{1}{T_n(a)} - p(x_k) < -\frac{1}{T_n(a)} + \frac{1}{T_n(a)} = 0
+    \]
+\end{itemize}
+Thus, \( q(x_k) \) alternates positive and negative at \( x_0, x_1, \dots, x_n \)( \( n+1 \) points):
+\[
+q(x_0) > 0, \quad q(x_1) < 0, \quad q(x_2) > 0, \quad \dots, \quad q(x_n) = (-1)^n \cdot \frac{1}{T_n(a)} - p(x_n)
+\]
+
+Then we can find there is at least one zero point at \( (x_k, x_{k+1}) \), and \( n \) zero points in total. Meanwhile, \( q(a) = 0 \)，\( a > 1 \) is out of \([-1, 1]\). Thus\( q(x) \) has \( n+1 \) zero points at least。
+
+
+\( q(x) \)  is a polynomial with a degree not exceeding \( n \) , and non-zero polynomials have at most \( n \) roots. \( q(x) \) has (n+1) roots, indicating:
+
+\[
+q(x) \equiv 0 \implies \hat{p}_n(x) = p(x)
+\]
+
+Thus:
+
+\[
+\|p\|_\infty = \left\| \frac{T_n(x)}{T_n(a)} \right\|_\infty = \frac{1}{T_n(a)} = \|\hat{p}_n\|_\infty
+\]
+
+Contradict with \( \|p\|_\infty < \frac{1}{T_n(a)} \), so:
+\[
+\|\hat{p}_n\|_\infty \leq \|p\|_\infty, \quad \forall p \in P_n^a
+\]
+
+\section*{XI.}
+\subsection*{Proof:}
+\indent The Bernstein base polynomial of degree \( n-1 \) is:
+
+\[
+b_{n-1, k}(t) = \binom{n-1}{k} t^k (1 - t)^{(n-1)-k}.
+\]
+
+We propose:
+
+\[
+b_{n-1, k}(t) = \alpha b_{n, k}(t) + \beta b_{n, k+1}(t),
+\]
+
+We can find:
+
+\[
+\alpha \binom{n}{k} t^k (1-t)^{n-k} + \beta \binom{n}{k+1} t^{k+1} (1-t)^{n-(k+1)} = \binom{n-1}{k} t^k (1-t)^{n-1-k}.
+\]
+
+
+Matching the powers of \( t \) and \( (1-t) \) on both sides, we can get:
+\\
+
+For the coefficient of \( t^k (1-t)^{n-1-k} \):
+\[
+\alpha \binom{n}{k} = \binom{n-1}{k}.
+\]
+\indent We find:
+\[
+\alpha = \frac{\binom{n-1}{k}}{\binom{n}{k}} = \frac{n-k}{n}.
+\]
+
+For the coefficient of \( t^{k+1} (1-t)^{n-1-(k+1)} \):
+\[
+\beta \binom{n}{k+1} = \binom{n-1}{k}.
+\]
+\indent We find:
+\[
+\beta = \frac{\binom{n-1}{k}}{\binom{n}{k+1}} = \frac{k+1}{n}.
+\]
+
+Thus, we get:
+
+\[
+b_{n-1, k}(t) = \frac{n-k}{n} b_{n, k}(t) + \frac{k+1}{n} b_{n, k+1}(t).
+\]
+
+\section*{XII.}
+\subsection*{Proof}
+Beta function:
+
+\[
+B(x, y) = \int_0^1 t^{x-1} (1 - t)^{y-1} \, dt.
+\]
+
+Set \( x = k+1 \) and \( y = n-k+1 \):
+
+\[
+\int_0^1 t^k (1 - t)^{n-k} \, dt = B(k+1, n-k+1).
+\]
+
+The Beta function can be expressed as:
+
+\[
+B(x, y) = \frac{\Gamma(x) \Gamma(y)}{\Gamma(x + y)}.
+\]
+
+For integer values, \( \Gamma(n) = (n-1)! \), so we have:
+
+\[
+B(k+1, n-k+1) = \frac{k! (n-k)!}{(n+1)!}.
+\]
+
+Then:
+
+\[
+\int_0^1 \binom{n}{k} t^k (1 - t)^{n-k} \, dt = \binom{n}{k} \cdot \frac{k! (n-k)!}{(n+1)!}.
+\]
+
+Simplifying \( \binom{n}{k} = \frac{n!}{k!(n-k)!} \), we get:
+
+\[
+\int_0^1 b_{n,k}(t) \, dt = \frac{n!}{k!(n-k)!} \cdot \frac{k! (n-k)!}{(n+1)!} = \frac{1}{n+1}.
+\]
+
+Thus:
+
+\[
+\int_0^1 b_{n,k}(t) \, dt = \frac{1}{n+1}.
+\]
+
+\end{document}
